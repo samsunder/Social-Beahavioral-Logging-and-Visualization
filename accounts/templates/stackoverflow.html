@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Stack Overflow Data{% endblock %}
+
+{% block content %}
+    <h3> <b>Stack Overflow Questions. Click on the below question links to navigate to answers page</b> </h3>
+    <div align="left" id="qblock">
+
+
+        </br></br></br></br>
+        {% for q in querydata %}
+            <div id="questions">
+                <a title="Click the link" href="answers?qid={{ q.title }}" class="link"> {{ q.title }} </a></div>
+            <hr>
+        {% endfor %}
+        <h3>End of Stackoverflow Data</h3></br></br>
+
+        <input type="button" onclick="location.href='userprofile'" value="BACK"
+               style="width: 100px; height: 100px"/>
+        <input type="button" onclick="location.href='logout'" value="logout" style="width: 100px; height: 100px"/>
+    </div>
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            $(".link").click(function () {
+                $.ajax({url: 'savedb', type: 'get', data: {Event: 'click'}})
+            })
+            $(window).scroll(function () {
+                $.ajax({url: 'savedb', type: 'get', data: {Event: 'SCROLL'}})
+
+            })
+            $("#qblock").mousemove(function () {
+                $.ajax({url: 'savedb', type: 'get', data: {Event: 'MouseMove'}})
+            })
+        })
+
+
+    </script>
+    {#    <p>TEST</p>#}
+{% endblock %}

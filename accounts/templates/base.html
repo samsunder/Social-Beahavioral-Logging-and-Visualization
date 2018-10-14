@@ -1,0 +1,80 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}{% endblock %}Adaptive Web Homework 1</title>
+
+{% load static %}
+
+<style>
+
+    body {
+        background-color: powderblue;
+        background-size: cover;
+  font-family: Arial;
+  padding: 20px;
+        background-image: url("{% static "images/aw.jpg"%}");
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 20px;
+  font-size: 16px;
+  text-align: center;
+  background: #1CBCAD;
+  background-image("{% static "images/header-bg-2.jpg"%}");
+  background-position: center center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Raleway"; /* OPTIONAL: Google Fonts - title font */
+  font-weight: 300;
+  color: #333;
+}
+
+    .header {
+  background: #1CBCAD;
+  padding-top:20px;
+  text-align:center;
+  background-position: center center;
+  min-height: 20px;
+  width: 100%;
+
+
+}
+
+h2 {
+  font-size: 80px;
+  color: blue;
+  background: rgba(0,0,0,0.2);
+}
+
+p {
+    align : center;
+  line-height: 28px;
+  margin-bottom: 25px;
+}
+
+
+h3 {
+  font-size: 18px;
+  color: black;
+}
+
+.header h3 a {
+  color: #fff;
+}
+
+</style>
+
+</head>
+<body>
+  <main>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>

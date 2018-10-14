@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up Page - Please Sign up{% endblock %}
+
+{% block content %}
+
+    <center>
+
+        <h2> Adaptive Web Assignment1 - Sam Sunder Golla</h2></br></br>
+    <h3>New Users Login. Please login if already Signed Up.</h3> </br></br></br>
+
+        {% if error %}
+            <p style="color: red">{{ error }}</p>
+        {% endif %}
+
+    <input type="button" onclick="location.href='signup'" value="singup" style="width: 100px; height: 100px"/> <br/></br>
+
+    <input type="button" onclick="location.href='login'" value="login" style="width: 100px; height: 100px"/>
+
+    </center>
+
+{% endblock %}

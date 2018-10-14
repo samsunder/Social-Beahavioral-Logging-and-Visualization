@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+
+{% block title %}SUserProfile{% endblock %}
+
+{% block content %}
+    <div align="center" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+        <h3>User Past Login: {{ user.last_login }}</h3> <br/>
+
+        <h3> User Name : {{ user.username }}</h3>
+
+        <h3> First Name: {{ userdata.fname }}</h3>
+
+        <h3>User Last Name : {{ userdata.lname }}</h3>
+
+        <h3>User Email : {{ userdata.email }}</h3></br></br></br>
+
+        <input type="button" onclick="location.href='stackoverflow'" value="stackoverflow"
+               style="width: 100px; height: 100px"/>
+        <input type="button" onclick="location.href='logout'" value="logout" style="width: 100px; height: 100px"/>
+    </div>
+    <hr></br>
+    </div>
+
+
+    <div id="piechart" style="width: 250px; float: left; height: 250px;">
+    </div>
+
+
+
+
+    <div id="chart3" style=" width: 250px; height: 250px; float:left"></div>
+    <div id="chart3_1" style=" width: 250px; height: 250px; float:left"></div>
+    <div id="barchart_values" style="width: 450px; height: 400px; float: right "></div>
+
+<div align="left">
+    <div id="box1" style="width: 400px; float: left; height: 500px;">
+        </br></br></br></br></br></br>
+        <h3><b><em>Actions Logged & Reasons</em></b></h3>
+        <li><h3> I have logged the following User actions</h3></li>
+        <li><h3>CLICK:To get a measure of question and answer upvote(star) clicks</h3></li>
+         <li><h3>SCROLL: To get a measure of the interaction of a user with a particular module of a page</h3></li>
+         <li><h3>MOUSE-MOVE: To get a measure of, in what part of a module a user is interested in.</h3></li>
+         <li><h3>CLICK-UPVOTE: To measure if a User likes an answer to a posted question</h3></li>
+         <li><h3>HOVER: To get a measure if an user is interested in a particular division of a page</h3></li>
+        <h3> <b>Reason:</b> I tried to find a pattern of user interaction with the Questions and Answers
+            during various times of the day like Morning, Evening and Night. These actions proved to be effective in
+            achieving this scenario.</h3>
+
+    </div>
+
+
+    <div id="box2" style="width: 800px; float: right; height: 500px;">
+        <h3><b><em>Analysis & Results</em></b></h3>
+        <li><h3>I have portrayed the mentioned patterns by taking the
+                occurences(counts) of the actions from the database.</h3></li>
+        <li><h3>It is evident that mouseover and scroll were the predominant
+                actions and it is obvious.The first interactive pie char depicts
+                this and when we hover it, we can see the stats.</h3></li>
+        <li><h3>The second pie chart depicts the timings at which the user
+                has clicked on questions and upvoted(liked) the respective
+                answers. The timestamps of the action logs is taken into
+                account.I have included this functionality to portray how and
+                when a particular user is active throughout the day.</h3></li>
+        <li><h3>On clicking the second pie chart of its respective quadrants, a
+                new pie chart pops up that shows the number of clicks on questions
+                and the upvotes or likes for an answer. This specifies the no.of questions
+                he has clicked and the number of upvotes or likes he has given to a
+                answer during the particular time of a day</h3></li>
+        <li><h3>By logging these actions, we can see a pattern that relates to user
+                activity during various times of a day.</h3></li>
+        <li><h3>The last bar graph shows a clear picture of the statistics of actions
+                of a particular user.</h3></li>
+
+
+    </div>
+
+
+</div>
+
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+    <script type="text/javascript">
+
+        google.charts.load("current", {packages: ["corechart"]});
+        google.charts.setOnLoadCallback(drawEventsPieChart);
+        google.charts.setOnLoadCallback(drawClicksPieChart);
+
+        //viz1()
+
+        function drawEventsPieChart() {
+
+            var data4 = {{ data | safe }};
+            var data3 = google.visualization.arrayToDataTable(data4);
+
+
+            var options = {
+                legend: 'none',
+                pieSliceText: 'label',
+                title: 'USER: ' + '{{user.username}}' +' || ' + 'Chart Depicting Various actions Percentage',
+                pieStartAngle: 100,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data3, options);
+        }
+
+        function drawClicksPieChart() {
+
+            var data4 = {{ mtot | safe }};
+            var data3 = google.visualization.arrayToDataTable(data4);
+
+
+            var options = {
+                legend: 'none',
+                pieSliceText: 'label',
+                title: 'USER: ' + '{{user.username}}' + ' || ' + 'Chart depicting clicks on questions and answer Upvotes or Likes during various times of day',
+                pieStartAngle: 100,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart3'));
+
+            function selectHandler() {
+                var selectedItem = chart.getSelection()[0];
+                if (selectedItem) {
+                    var value = data3.getValue(selectedItem.row, 0);
+                    {#alert('The user selected ' + value);#}
+                    drawclickDetailsPie(value)
+                }
+            }
+            google.visualization.events.addListener(chart, 'select', selectHandler);
+
+
+            chart.draw(data3, options);
+        }
+
+        function drawclickDetailsPie(event) {
+
+            var data4 = "";
+            if (event === 'day') {
+                data4 = {{ mday | safe }};
+            } else if (event === 'morning') {
+                data4 = {{ mmor | safe }};
+            } else if (event === 'evening') {
+                data4 = {{ meve | safe }};
+            } else {
+                return
+            }
+            var data3 = google.visualization.arrayToDataTable(data4);
+
+
+            var options = {
+                legend: 'none',
+                pieSliceText: 'label',
+                title: 'USER: ' + '{{user.username}}' + ' || '+ 'Question and Answer upvote stats during the particualr time chosen in the prior chart',
+                pieStartAngle: 100,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart3_1'));
+
+            chart.draw(data3, options);
+
+        }
+
+
+    </script>
+
+
+    <script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+         var data_9 = {{ data | safe }};
+      var data_10 = google.visualization.arrayToDataTable(data_9);
+
+      var view = new google.visualization.DataView(data_10);
+
+
+      var options = {
+        title: "Precise Visualization of User actions",
+        width: 300,
+        height: 300,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+      chart.draw(data_10, options);
+  }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

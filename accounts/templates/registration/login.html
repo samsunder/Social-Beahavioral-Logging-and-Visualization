@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Login Page{% endblock %}
+
+{% block content %}
+
+<h2>Login</h2>
+    {% if user.is_authenticated %}
+        <meta http-equiv="Refresh" content="0;url=/assign1/userprofile">
+    {% endif %}
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Login</button>
+</form>
+{% endblock %}

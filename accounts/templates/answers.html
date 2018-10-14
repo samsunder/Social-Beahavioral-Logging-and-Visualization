@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Stack Overflow Data{% endblock %}
+
+{% block content %}
+    <h3><b> Stack Answers - Click on star to upvote incase an answer or mutiple answers exist</b></h3>
+    <div id="answers" align="left">
+
+        </br></br></br></br>
+        <div id="st">
+        {% for b in answers %}
+
+            <h4><i>A) {{ b.content|safe|escape }}</i> </h4> <input type="button" id="star" value="star" style="width: 100px; height: 100px"/> </br>
+            <hr>
+        {% endfor %}</div>
+        <h3>End of Stackoverflow Data</h3></br></br>
+
+
+    <input type="button" onclick="location.href='logout'" value="logout" style="width: 100px; height: 100px"/>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $("i").hover(function () {
+                $.ajax({url: 'savedb', type: 'get', data: {Event: 'hover'}})
+            })
+        $("#st").click(function () {
+                $.ajax({url: 'savedb', type: 'get', data: {Event: 'click_star'}})
+            })
+
+        })
+    </script>
+
+{% endblock %}

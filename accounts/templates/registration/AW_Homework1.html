@@ -1,0 +1,118 @@
+<html>
+
+<head>
+
+  <link rel="stylesheet" href="font-awesome.min.css">
+ 
+  <link rel="stylesheet" href="dvdemo.css">
+
+  <link rel="stylesheet" href="bootstrap.css">
+
+
+  <script type="text/javascript">
+function validate()
+{
+      var text1 = document.getElementById("t1");
+      var text2 = document.getElementById("t2");
+
+    if(   (text1.value == "aaa" || text1.value == "bbb" || text1.value == "ccc")
+       && text2.value == "123" )
+    {
+        alert( "validation succeeded" );
+        load("User1.html");
+    }
+    else
+    {
+        alert( "validation failed" );
+        load("https://www.facebook.com");
+    }
+
+    function load(url)
+{
+    window.open(url, '_blank');
+}
+}
+</script>
+
+
+
+
+</head>
+<body align="center">
+
+
+  <div id="header" class="header">
+    <div class="container">
+      <div class="row centered">
+        <div class="col-lg-12">
+          <!-- EDIT: name -->
+          <h2>ADAPTIVE WEB ASSIGNMENT 1</h2>
+          <!-- EDIT: title | email -->
+         <!-- <h3>Link to Data Set | <a href="https://www.kaggle.com/zaeemnalla/premier-league" target="_blank">Click here</a></h3> -->
+        </div><!--/.col-lg-12 -->
+      </div><!--/.row -->
+    </div><!--/.container -->
+  </div><!--/.header -->
+ 
+
+
+<section id="about" name="about"></section>
+  <div class="about">
+    <div class="container">
+      <div class="row">
+        
+        <div class="col-lg-2 col-lg-offset-1">
+          <h5>ASSIGNMENT INTRO</h5>
+        </div>
+        <div class="col-lg-6">
+          <!-- EDIT: about -->
+          <p> Social Visualization with Behavioral Logging.</p>
+        </div>
+        
+        
+      </div><!--/.row -->
+    </div><!--/.container -->
+  </div><!--/ #intro -->
+
+
+
+
+
+
+        <!-- EDIT: education line 2 -->
+
+        	<form action="action_page.php">
+  
+
+  <div class="container">
+  </b>
+  </br>
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" id="t1" name="uname" required> </br></br>
+
+    <label for="psw"><b>Password</b></label> 
+    <input type="password" placeholder="Enter Password" id="t2" name="psw" required>
+
+    <button type="button" value="login" onclick="javascript:validate()">Login</button> </br></br>
+   <!-- <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label> -->
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a href="#">password?</a></span>
+  </div>
+</form>        
+  
+    </div><!--/.row -->
+    <br>
+    <hr>
+  </div><!--/.container -->
+
+
+  
+
+</body>
+
+</html>
